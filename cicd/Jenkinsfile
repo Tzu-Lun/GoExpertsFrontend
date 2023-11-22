@@ -22,10 +22,10 @@ pipeline {
             }
         }
         stage('Update npm') {
-             steps {
-             sh 'npm install -g npm@latest'
-        }
+    steps {
+        sh 'npm install -g npm@7'  // 選擇一個與 Node.js v18 兼容的 npm 版本
     }
+}
 
         stage('Build') {
             steps {
