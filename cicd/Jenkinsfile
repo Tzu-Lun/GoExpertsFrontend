@@ -18,7 +18,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir("./cicd/") {
-                    sh 'npm install'
+                    // 清理 npm 緩存
+                sh 'npm cache clean --force'
+                sh 'npm install'
                 }
             }
         }
