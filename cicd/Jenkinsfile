@@ -1,26 +1,23 @@
 pipeline {
     agent any
 
-    environment {
-        NODEJS_HOME = tool name: 'NodeJS-12', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-        // 包含 npm 的路徑
-        PATH = "${env.NODEJS_HOME}/bin:${env.NODEJS_HOME}/lib/node_modules/npm@6/bin:${env.PATH}"
-}
+     environment {
+        NODEJS_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+        PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
+    }
 
     stages {
         stage('Checkout') {
             steps {
                 // Get source code from a GitHub repository
-                git branch:'declandevops', url:'https://github.com/Tzu-Lun/GoExpertsFrontend.git'
+                git branch:'declandevops', url:'https://github.com/Tzu-Lun/devops-task-room.git'
             }
         }
         
         stage('Install Dependencies') {
             steps {
                 dir("./cicd/") {
-                    // 清理 npm 緩存
-                sh 'npm cache clean --force'
-                sh 'npm install'
+                    sh 'npm install'
                 }
             }
         }
@@ -35,7 +32,7 @@ pipeline {
         
         stage('Deploy to AWS S3 bucket') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'p3l1-jenkins-credential', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-p3l1-jenkins-credential', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                     dir("./cicd/") {
                       sh 'aws s3 ls'
                       sh 'aws s3 sync build s3://p3l1devops/'
