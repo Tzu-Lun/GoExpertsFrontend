@@ -1,8 +1,7 @@
 pipeline {
     agent any
 
-     environment {
-        environment {
+    environment {
         // 指定 NodeJS 工具名稱和版本
         NODEJS_HOME = tool name: 'NodeJS-12', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
         
