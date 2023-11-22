@@ -6,6 +6,11 @@ pipeline {
         PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
     }
 
+    tools {
+        nodejs 'NodeJS-12' // 指定 Node.js 工具名
+        npm 'npm-6' // 指定 npm 工具名
+    }
+
     stages {
         stage('Checkout') {
             steps {
