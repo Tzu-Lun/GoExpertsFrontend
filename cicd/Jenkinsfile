@@ -21,7 +21,12 @@ pipeline {
                 }
             }
         }
-        
+        stage('Update npm') {
+             steps {
+             sh 'npm install -g npm@latest'
+        }
+    }
+
         stage('Build') {
             steps {
                 dir("./cicd/") {
