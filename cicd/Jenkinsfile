@@ -2,15 +2,10 @@ pipeline {
     agent any
 
     environment {
-        // 指定 NodeJS 工具名稱和版本
         NODEJS_HOME = tool name: 'NodeJS-12', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-        
-        // 指定 npm 版本
-        NPM_HOME = tool name: 'npm-6', type: 'jenkins.plugins.nodejs.tools.NpmPackagesInstallation'
-        
-        // 將 NodeJS 和 npm 加入 PATH
-        PATH = "${env.NODEJS_HOME}/bin:${env.NPM_HOME}/bin:${env.PATH}"
-    }
+        // 包含 npm 的路徑
+        PATH = "${env.NODEJS_HOME}/bin:${env.NODEJS_HOME}/lib/node_modules/npm/bin:${env.PATH}"
+}
 
     stages {
         stage('Checkout') {
