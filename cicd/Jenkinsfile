@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Get source code from a GitHub repository
-                git branch:'declandevops', url:'https://github.com/Tzu-Lun/devops-task-room.git'
+                git branch:'declandevops', url:'https://github.com/Tzu-Lun/GoExpertsFrontend.git'
             }
         }
         
